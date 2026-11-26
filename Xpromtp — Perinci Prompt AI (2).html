@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Xpromtp — Perinci Prompt AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f4ff;--card:rgba(255,255,255,.78);--field:#fff;--text:#16142e;--mute:#5f5d80;--line:rgba(90,80,170,.18);--a:#6d5efc;--b:#ff5fa2;--c:#14b8d6;--shadow:0 24px 60px -28px rgba(80,60,200,.45);--code:#fff;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#090917;--card:rgba(255,255,255,.055);--field:rgba(255,255,255,.06);--text:#f2f1ff;--mute:#9d9cc4;--line:rgba(255,255,255,.12);--shadow:0 24px 60px -28px rgba(0,0,0,.8);--code:rgba(0,0,0,.35);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#090917;--card:rgba(255,255,255,.055);--field:rgba(255,255,255,.06);--text:#f2f1ff;--mute:#9d9cc4;--line:rgba(255,255,255,.12);--shadow:0 24px 60px -28px rgba(0,0,0,.8);--code:rgba(0,0,0,.35);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:400 15px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh;overflow-x:hidden}
+.aur{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aur i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.38;animation:fl 18s ease-in-out infinite alternate}
+.aur i:nth-child(1){width:46vw;height:46vw;background:var(--a);top:-12vw;left:-10vw}
+.aur i:nth-child(2){width:40vw;height:40vw;background:var(--b);top:20vh;right:-12vw;animation-delay:-6s}
+.aur i:nth-child(3){width:36vw;height:36vw;background:var(--c);bottom:-14vw;left:25vw;animation-delay:-11s}
+@keyframes fl{to{transform:translate(5vw,4vw) scale(1.15)}}
+.wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:18px 18px 60px}
+nav{display:flex;align-items:center;justify-content:space-between;padding:6px 0 4px}
+.logo{display:flex;align-items:center;gap:10px;font:700 22px "Space Grotesk",sans-serif;letter-spacing:-.02em}
+.logo b{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 8px 24px -6px var(--a);font-size:20px}
+.logo em{font-style:normal;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ghost{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:12px;padding:8px 12px;font:inherit;cursor:pointer;backdrop-filter:blur(10px)}
+.hero{text-align:center;padding:34px 0 26px;animation:up .7s both}
+.pill{display:inline-block;font-size:12.5px;padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--mute);margin-bottom:16px}
+h1{font:700 clamp(34px,6.4vw,64px)/1.05 "Space Grotesk",sans-serif;letter-spacing:-.035em;margin:0 0 14px}
+h1 span{background:linear-gradient(90deg,var(--a),var(--b) 55%,#ffa94d);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:580px;margin:0 auto;color:var(--mute);font-size:16.5px}
+.steps{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 18px;margin-top:18px;color:var(--mute);font-size:13.5px}
+.steps b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--b));color:#fff;font-size:11px;margin-right:6px}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+h2{font:700 13px "Space Grotesk",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin:0 0 12px}
+.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px;animation:up .7s .1s both}
+@media(min-width:760px){.cats{grid-template-columns:repeat(4,1fr)}}
+.cat{position:relative;text-align:left;padding:16px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer;font:inherit;backdrop-filter:blur(12px);transition:transform .25s,box-shadow .25s,border-color .25s;overflow:hidden}
+.cat:hover{transform:translateY(-3px)}
+.cat .ic{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;font-size:22px;background:var(--g);margin-bottom:10px;box-shadow:0 10px 22px -8px rgba(0,0,0,.35)}
+.cat b{display:block;font:700 17px "Space Grotesk",sans-serif}
+.cat small{color:var(--mute);font-size:12.5px;line-height:1.35;display:block;margin-top:2px}
+.cat.on{border-color:transparent;box-shadow:0 0 0 2px var(--a),var(--shadow)}
+.cat.on::after{content:"✓";position:absolute;top:12px;right:12px;width:22px;height:22px;border-radius:50%;background:var(--a);color:#fff;display:grid;place-items:center;font-size:12px}
+.grid{display:grid;gap:18px;grid-template-columns:1fr;animation:up .7s .2s both}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr;align-items:start}.out{position:sticky;top:16px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;backdrop-filter:blur(16px);box-shadow:var(--shadow)}
+.fld{display:block;margin-bottom:14px}
+.fld span{display:block;font-weight:600;font-size:13.5px;margin-bottom:6px}
+input,textarea,select{width:100%;font:inherit;color:var(--text);background:var(--field);border:1px solid var(--line);border-radius:12px;padding:11px 13px;outline:none;transition:border-color .2s,box-shadow .2s}
+textarea{resize:vertical;min-height:48px}
+#idea{min-height:96px}
+input:focus,textarea:focus,select:focus{border-color:var(--a);box-shadow:0 0 0 3px color-mix(in srgb,var(--a) 25%,transparent)}
+.two{display:grid;gap:0 12px;grid-template-columns:1fr}
+@media(min-width:560px){.two{grid-template-columns:1fr 1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:-4px 0 16px}
+.chip{border:1px dashed var(--line);background:transparent;color:var(--mute);border-radius:99px;padding:5px 11px;font:inherit;font-size:12.5px;cursor:pointer;transition:.2s}
+.chip:hover{color:var(--text);border-color:var(--a);background:color-mix(in srgb,var(--a) 12%,transparent)}
+.seg{display:flex;gap:6px;background:var(--field);border:1px solid var(--line);padding:4px;border-radius:14px}
+.seg button{flex:1;border:0;border-radius:10px;padding:9px 6px;font:inherit;font-weight:600;font-size:13px;background:transparent;color:var(--mute);cursor:pointer;transition:.2s}
+.seg button.on{background:linear-gradient(135deg,var(--a),var(--b));color:#fff;box-shadow:0 6px 16px -6px var(--a)}
+.chk{display:flex;gap:10px;align-items:center;margin:14px 0 0;font-size:13.5px;color:var(--mute);cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--a)}
+.mt{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;font-weight:600}
+.bar{height:9px;border-radius:9px;background:var(--field);border:1px solid var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--c),var(--a),var(--b));transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.tip{font-size:12.5px;color:var(--mute);margin:8px 0 14px;min-height:19px}
+pre{margin:0;white-space:pre-wrap;word-wrap:break-word;background:var(--code);border:1px solid var(--line);border-radius:16px;padding:16px;font:400 13px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;max-height:460px;overflow:auto;min-height:180px}
+pre .h{display:inline-block;margin-top:6px;font-weight:700;color:var(--a);letter-spacing:.04em}
+pre .ph{color:var(--mute);font-family:Inter,sans-serif;font-size:14px}
+.act{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+.btn{border:0;border-radius:14px;padding:12px 18px;font:600 14px Inter,sans-serif;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 12px 26px -10px var(--a);transition:transform .2s,opacity .2s;flex:1 1 150px}
+.btn:hover{transform:translateY(-2px)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn.s{background:var(--field);color:var(--text);border:1px solid var(--line);box-shadow:none;flex:0 0 auto}
+.meta{margin-left:auto;font-size:12px;color:var(--mute)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:var(--text);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:600;font-size:14px;transition:.3s;z-index:5;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;color:var(--mute);font-size:13px;margin-top:34px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<style>
+:root{--bg:#fafafa;--card:rgba(255,255,255,.8);--field:#fff;--text:#0a0a0a;--mute:#66666f;--line:rgba(0,0,0,.13);--shadow:0 24px 60px -30px rgba(0,0,0,.35);--spot:rgba(0,0,0,.05);--grad:linear-gradient(100deg,#0a0a0a 0%,#4a4a58 32%,#6d5efc 68%,#ff5fa2 100%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#050505;--card:rgba(255,255,255,.05);--field:rgba(255,255,255,.05);--text:#f5f5f5;--mute:#9a9aa6;--line:rgba(255,255,255,.13);--shadow:0 24px 60px -28px #000;--spot:rgba(255,255,255,.09);--grad:linear-gradient(100deg,#fff 0%,#c4c4d0 32%,#8b7bff 68%,#ff6ab5 100%)}}
+:root[data-theme="dark"]{--bg:#050505;--card:rgba(255,255,255,.05);--field:rgba(255,255,255,.05);--text:#f5f5f5;--mute:#9a9aa6;--line:rgba(255,255,255,.13);--shadow:0 24px 60px -28px #000;--spot:rgba(255,255,255,.09);--grad:linear-gradient(100deg,#fff 0%,#c4c4d0 32%,#8b7bff 68%,#ff6ab5 100%)}
+html{scroll-behavior:auto}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis-stopped{overflow:hidden}
+.hero,.cats,.grid{animation:none}
+.aur i{opacity:.2}
+.card,.cat{background-image:radial-gradient(420px circle at var(--mx,50%) var(--my,-60%),var(--spot),transparent 45%)}
+.logo b{background:var(--text);color:var(--bg);box-shadow:none}
+.logo em{background:var(--grad);-webkit-background-clip:text;background-clip:text}
+.steps b{background:var(--text);color:var(--bg)}
+.cat .ic{background:var(--field);border:1px solid var(--line);box-shadow:none}
+.cat:hover{border-color:var(--text)}
+.cat.on{box-shadow:0 0 0 1.5px var(--text),var(--shadow)}
+.cat.on::after{background:var(--text);color:var(--bg)}
+.seg button.on{background:var(--text);color:var(--bg);box-shadow:none}
+.bar i{background:var(--grad)}
+.btn,.ghost{transition:box-shadow .25s,opacity .2s}
+.btn{background:var(--text);color:var(--bg);box-shadow:0 14px 34px -16px var(--b)}
+.btn:hover{transform:none;box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--a),0 16px 40px -12px var(--b)}
+.chip:hover{border-color:var(--text);background:var(--field);color:var(--text)}
+.chk input{accent-color:var(--text)}
+input:focus,textarea:focus,select:focus{border-color:var(--text);box-shadow:0 0 0 3px var(--line)}
+pre .h{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.intro .cat{transition:none!important}
+h1{margin:0;line-height:1}
+.wm{display:inline-block;font:700 clamp(56px,16vw,176px)/.95 "Space Grotesk",sans-serif;letter-spacing:-.055em;background:var(--grad);background-size:220% 100%;background-position:0 0;-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .05em .1em}
+.by{margin:6px 0 20px;font:500 14px "Space Grotesk",sans-serif;letter-spacing:.14em;color:var(--mute)}
+.by b{margin-left:6px;padding:4px 12px;border:1px solid var(--line);border-radius:99px;background:var(--card);color:var(--text);letter-spacing:.06em}
+.sub{font:600 clamp(22px,3.6vw,34px)/1.2 "Space Grotesk",sans-serif;letter-spacing:-.02em;margin-bottom:12px}
+.sub span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mq{overflow:hidden;border-block:1px solid var(--line);padding:10px 0;margin:4px 0 30px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.mqt{display:flex;width:max-content;white-space:nowrap;font:700 clamp(28px,5vw,52px) "Space Grotesk",sans-serif;letter-spacing:-.02em}
+.mqt span{padding:0 22px;color:transparent;-webkit-text-stroke:1px var(--mute)}
+.mqt span:nth-child(even){-webkit-text-stroke:0;background:var(--grad);-webkit-background-clip:text;background-clip:text}
+.prog{position:fixed;top:0;left:0;right:0;height:3px;background:var(--grad);transform-origin:0 50%;transform:scaleX(0);z-index:6}
+.glow{position:fixed;left:0;top:0;width:440px;height:440px;margin:-220px 0 0 -220px;border-radius:50%;background:radial-gradient(circle,var(--a),var(--b) 45%,transparent 70%);opacity:0;filter:blur(40px);pointer-events:none;z-index:0}
+@media(hover:none){.glow{display:none}}
+.how{margin-top:60px}.hw{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:760px){.hw{grid-template-columns:repeat(3,1fr)}}
+.hc b{display:inline-block;font:700 46px "Space Grotesk",sans-serif;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hc h3{font:700 19px "Space Grotesk",sans-serif;margin:6px 0}
+.hc p{margin:0;color:var(--mute);font-size:14px}
+footer b{color:var(--text)}
+/* perf: tanpa blur berat, GPU-friendly */
+.aur{will-change:transform}
+.aur i{filter:none;opacity:.3;will-change:transform}
+.aur i:nth-child(1){background:radial-gradient(circle,var(--a) 0%,transparent 65%)}
+.aur i:nth-child(2){background:radial-gradient(circle,var(--b) 0%,transparent 65%)}
+.aur i:nth-child(3){background:radial-gradient(circle,var(--c) 0%,transparent 65%)}
+.glow{filter:none;will-change:transform}
+.card,.cat,.ghost,.pill{-webkit-backdrop-filter:none;backdrop-filter:none}
+.mq{-webkit-mask-image:none;mask-image:none;position:relative}
+.mq::before,.mq::after{content:"";position:absolute;top:0;bottom:0;width:70px;z-index:1;pointer-events:none}
+.mq::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.mq::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.mqt,.wm{will-change:transform}
+</style>
+</head>
+<body>
+<div class="aur"><i></i><i></i><i></i></div>
+<div class="prog"></div><div class="glow"></div>
+<div class="wrap">
+<nav>
+  <div class="logo"><b>X</b><span>X<em>promtp</em></span></div>
+  <button class="ghost" id="theme" aria-label="Ganti tema">🌓 Tema</button>
+</nav>
+
+<header class="hero">
+  <span class="pill">✨ Dari ide mentah jadi prompt matang</span>
+  <h1 aria-label="Xpromtp"><span class="wm">Xpromtp</span></h1>
+  <div class="by">Created by <b>xammdev</b></div>
+  <div class="sub">Ide kecil, <span>prompt detail.</span></div>
+  <p>Xpromtp membantu merinci dan memperdalam idemu, lalu menyusunnya menjadi prompt terstruktur yang siap ditempel ke AI mana pun.</p>
+  <div class="steps"><span><b>1</b>Pilih jenis ide</span><span><b>2</b>Tulis &amp; rinci</span><span><b>3</b>Salin prompt</span></div>
+</header>
+
+<div class="mq" aria-hidden="true"><div class="mqt" id="mqt"></div></div>
+
+<h2>Pilih jenis idemu</h2>
+<div class="cats" id="cats"></div>
+
+<div class="grid">
+  <section class="card">
+    <label class="fld"><span id="ideaLbl">Ide utamamu</span><textarea id="idea" placeholder=""></textarea></label>
+    <div class="chips" id="chips"></div>
+    <div class="two" id="fields"></div>
+    <div class="fld"><span>Tingkat detail jawaban</span>
+      <div class="seg" id="depth"><button data-d="0">Ringkas</button><button data-d="1" class="on">Standar</button><button data-d="2">Mendalam</button></div>
+    </div>
+    <label class="chk"><input type="checkbox" id="ask" checked> Minta AI bertanya balik jika ada info yang kurang</label>
+  </section>
+
+  <section class="card out">
+    <div class="mt"><span>Kekuatan prompt</span><span id="lvl">Masih kosong</span></div>
+    <div class="bar"><i id="fill"></i></div>
+    <div class="tip" id="tip"></div>
+    <pre id="pre" data-lenis-prevent></pre>
+    <div class="act">
+      <button class="btn" id="copy">📋 Salin prompt</button>
+      <button class="btn s" id="reset">Reset</button>
+      <span class="meta" id="meta"></span>
+    </div>
+  </section>
+</div>
+<section class="how"><h2>Kenapa Xpromtp?</h2><div class="hw">
+<article class="card hc"><b>01</b><h3>Pilih arah</h3><p>Coding, belajar, kreatif, atau umum. Tiap jalur punya pertanyaan rincian yang berbeda.</p></article>
+<article class="card hc"><b>02</b><h3>Dalami idemu</h3><p>Isi tujuan, gaya, level, dan batasan sampai idemu terasa jelas dan tajam.</p></article>
+<article class="card hc"><b>03</b><h3>Salin &amp; tempel</h3><p>Prompt terstruktur langsung siap dipakai di AI favoritmu.</p></article>
+</div></section>
+<footer>Xpromtp · Created by <b>xammdev</b></footer>
+</div>
+<div class="toast" id="toast">Prompt disalin ✓</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+const CATS={
+coding:{icon:"💻",name:"Coding",desc:"Website, app, game, bug, otomasi",g:"linear-gradient(135deg,#6d5efc,#22d3ee)",
+ lbl:"Ide proyek kodemu",ph:"Contoh: website kasir sederhana untuk warung dengan laporan harian",
+ ex:["Website portofolio animasi","Game mobil 2D di browser","Bot Telegram pengingat tugas"],
+ role:"Kamu adalah senior software engineer dan mentor yang teliti, rapi, dan komunikatif.",
+ task:"Wujudkan ide di atas: rancang arsitektur singkat, lalu tulis kode yang bersih, lengkap, dan siap dijalankan.",
+ fmt:"Urutan jawaban: (1) ringkasan rencana, (2) kode lengkap, (3) cara menjalankan, (4) saran pengembangan.",
+ rules:["Beri struktur file jika lebih dari satu file","Tulis komentar di bagian penting","Tangani error dan kasus tepi umum"],
+ f:[{l:"Jenis proyek",t:"s",o:["Website","Aplikasi mobile","API / backend","Game","Script & otomasi","Perbaiki bug"]},
+    {l:"Bahasa / teknologi",p:"mis. React, Tailwind, Python"},
+    {l:"Level kemampuanku",t:"s",o:["Pemula","Menengah","Mahir"]},
+    {l:"Batasan teknis",p:"mis. satu file, tanpa library"},
+    {l:"Fitur utama",t:"a",p:"mis. login, keranjang, laporan PDF",w:1}]},
+belajar:{icon:"📚",name:"Belajar",desc:"Pahami materi, ujian, skill baru",g:"linear-gradient(135deg,#f59e0b,#ef4444)",
+ lbl:"Apa yang ingin kamu pelajari?",ph:"Contoh: saya ingin paham konsep turunan dan integral dari nol",
+ ex:["Belajar bahasa Inggris untuk wawancara","Pahami fotosintesis dengan mudah","Rencana belajar Python 1 bulan"],
+ role:"Kamu adalah tutor sabar yang jago menjelaskan hal rumit dengan sederhana dan menyenangkan.",
+ task:"Ajarkan topik di atas secara bertahap sesuai levelku, dari konsep dasar sampai aku bisa mempraktikkannya.",
+ fmt:"Urutan jawaban: (1) gambaran besar, (2) penjelasan bertahap, (3) contoh, (4) latihan singkat, (5) rangkuman.",
+ rules:["Pakai analogi dari kehidupan sehari-hari","Hindari istilah sulit tanpa penjelasan","Akhiri dengan kuis kecil untuk menguji pemahamanku"],
+ f:[{l:"Topik / mata pelajaran",p:"mis. Matematika kelas 11"},
+    {l:"Levelku saat ini",t:"s",o:["Pemula total","Dasar","Menengah","Lanjutan"]},
+    {l:"Gaya belajar favorit",t:"s",o:["Analogi sehari-hari","Contoh soal","Visual & diagram","Tanya-jawab"]},
+    {l:"Waktu yang tersedia",t:"s",o:["15 menit","1 jam","1 minggu","1 bulan"]},
+    {l:"Tujuan belajar",t:"a",p:"mis. lulus ujian, paham konsep, bikin proyek",w:1}]},
+kreatif:{icon:"🎨",name:"Kreatif",desc:"Cerita, desain, konten, branding",g:"linear-gradient(135deg,#ec4899,#8b5cf6)",
+ lbl:"Ide kreatifmu",ph:"Contoh: cerita pendek tentang kucing penjaga gerbang mimpi",
+ ex:["Poster ajakan kurangi plastik","Naskah video 60 detik","Nama brand kopi lokal"],
+ role:"Kamu adalah kreator dan art director berbakat yang punya selera kuat dan ide orisinal.",
+ task:"Kembangkan ide di atas menjadi karya yang segar, berkarakter, dan tidak klise.",
+ fmt:"Berikan hasil dalam beberapa opsi yang berbeda arah, tiap opsi diberi judul singkat dan alasan kreatifnya.",
+ rules:["Hindari klise dan ungkapan yang terlalu umum","Jaga konsistensi gaya dan nada","Beri alasan singkat di balik tiap pilihan kreatif"],
+ f:[{l:"Jenis karya",t:"s",o:["Cerita","Puisi","Desain poster","Ide konten","Naskah video","Lirik lagu","Nama & branding"]},
+    {l:"Gaya & mood",p:"mis. hangat, nostalgia, minimalis"},
+    {l:"Target audiens",p:"mis. remaja, warga sekolah"},
+    {l:"Jumlah opsi",t:"s",o:["1","3","5","10"]},
+    {l:"Elemen wajib / referensi",t:"a",p:"mis. warna biru, ada maskot kucing",w:1}]},
+umum:{icon:"✨",name:"Umum",desc:"Tulisan, rencana, saran, apa saja",g:"linear-gradient(135deg,#10b981,#06b6d4)",
+ lbl:"Apa yang ingin kamu minta?",ph:"Contoh: bantu saya susun rencana liburan hemat 3 hari di Yogyakarta",
+ ex:["Draf email izin ke guru","Rencana belajar mingguan","Saran memulai usaha kecil"],
+ role:"Kamu adalah asisten serba bisa yang cerdas, jujur, dan praktis.",
+ task:"Bantu aku mewujudkan permintaan di atas dengan jawaban yang jelas, akurat, dan langsung bisa dipakai.",
+ fmt:"Susun jawaban dengan alur logis: inti jawaban lebih dulu, lalu detail pendukung, lalu langkah selanjutnya.",
+ rules:["Jujur jika ada hal yang tidak pasti","Fokus pada yang paling berguna untukku","Jangan bertele-tele"],
+ f:[{l:"Tujuan akhir",p:"mis. email terkirim hari ini"},
+    {l:"Nada jawaban",t:"s",o:["Santai","Profesional","Tegas","Ramah"]},
+    {l:"Bentuk jawaban",t:"s",o:["Poin-poin","Paragraf","Tabel","Langkah demi langkah"]},
+    {l:"Hal yang harus dihindari",p:"mis. bahasa terlalu formal"},
+    {l:"Konteks / latar belakang",t:"a",p:"Ceritakan situasimu singkat",w:1}]}
+};
+const DEPTH=["Jawab padat dan langsung ke inti.","Jelaskan dengan seimbang: inti, alasan, dan contoh singkat.","Jelaskan sangat rinci: langkah demi langkah, alasan di balik tiap keputusan, alternatif, dan potensi kesalahan."];
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]));
+let cat="coding",depth=1;
+
+function renderCats(){
+  $("#cats").innerHTML=Object.entries(CATS).map(([k,c])=>`<button class="cat${k===cat?" on":""}" data-k="${k}"><span class="ic" style="--g:${c.g}">${c.icon}</span><b>${c.name}</b><small>${c.desc}</small></button>`).join("");
+}
+function renderFields(){
+  const c=CATS[cat];
+  $("#ideaLbl").textContent=c.lbl;
+  $("#idea").placeholder=c.ph;
+  $("#chips").innerHTML=c.ex.map((e,i)=>`<button class="chip" data-e="${i}">＋ ${e}</button>`).join("");
+  $("#fields").innerHTML=c.f.map((f,i)=>{
+    let el;
+    if(f.t==="s")el=`<select data-i="${i}"><option value="">— Pilih —</option>${f.o.map(o=>`<option>${o}</option>`).join("")}</select>`;
+    else if(f.t==="a")el=`<textarea rows="2" data-i="${i}" placeholder="${f.p}"></textarea>`;
+    else el=`<input data-i="${i}" placeholder="${f.p||""}">`;
+    return `<label class="fld" style="${f.w?"grid-column:1/-1":""}"><span>${f.l}</span>${el}</label>`;
+  }).join("");
+}
+function vals(){return [...document.querySelectorAll("#fields [data-i]")].map(e=>e.value.trim())}
+
+let current="";
+function build(){
+  const c=CATS[cat],idea=$("#idea").value.trim(),v=vals();
+  const filled=v.filter(Boolean).length,total=c.f.length+1;
+  const done=filled+(idea?1:0);
+  let pct=Math.round(done/total*100);
+  if(idea&&idea.length<25)pct=Math.max(0,pct-8);
+  if(!idea)pct=Math.min(pct,15);
+  $("#fill").style.width=pct+"%";
+  $("#lvl").textContent=!idea?"Masih kosong":pct<40?"Masih mentah 🌱":pct<70?"Lumayan 👍":pct<95?"Matang 🔥":"Sangat detail 🚀";
+  const empty=c.f.find((f,i)=>!v[i]);
+  $("#tip").textContent=!idea?"Mulai dengan menulis ide utamamu.":empty?`Tips: isi “${empty.l}” supaya hasil AI lebih tepat.`:"Mantap! Semua detail sudah terisi.";
+  if(!idea){
+    current="";
+    $("#pre").innerHTML=`<span class="ph">Tulis idemu di sebelah kiri, prompt-nya langsung tersusun di sini ✨</span>`;
+    $("#copy").disabled=true;$("#meta").textContent="";return;
+  }
+  const det=c.f.map((f,i)=>v[i]?`- ${f.l}: ${v[i]}`:"").filter(Boolean).join("\n");
+  const parts=[
+    "# PERAN\n"+c.role,
+    "# IDE UTAMA\n"+idea,
+    det?"# DETAIL & KONTEKS\n"+det:"",
+    "# TUGAS\n"+c.task+" "+DEPTH[depth],
+    "# FORMAT OUTPUT\n"+c.fmt,
+    "# ATURAN\n"+["Gunakan Bahasa Indonesia yang jelas dan natural"].concat(c.rules).map(r=>"- "+r).join("\n"),
+    $("#ask").checked?"# SEBELUM MENJAWAB\nJika ada informasi penting yang belum jelas, ajukan maksimal 3 pertanyaan singkat dulu, baru lanjutkan.":""
+  ].filter(Boolean);
+  current=parts.join("\n\n");
+  $("#pre").innerHTML=esc(current).replace(/^# (.+)$/gm,'<span class="h">$1</span>');
+  $("#copy").disabled=false;
+  $("#meta").textContent=current.split(/\s+/).length+" kata";
+}
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),1800)}
+async function copy(){
+  if(!current)return;
+  try{await navigator.clipboard.writeText(current);toast("Prompt disalin ✓");return}catch(e){}
+  try{const t=document.createElement("textarea");t.value=current;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();toast("Prompt disalin ✓")}
+  catch(e){toast("Gagal menyalin, blok teks secara manual")}
+}
+
+$("#cats").addEventListener("click",e=>{const b=e.target.closest(".cat");if(!b)return;cat=b.dataset.k;renderCats();renderFields();build()});
+$("#chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;$("#idea").value=CATS[cat].ex[b.dataset.e];build()});
+$("#depth").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;depth=+b.dataset.d;[...$("#depth").children].forEach(x=>x.classList.toggle("on",x===b));build()});
+document.addEventListener("input",build);
+$("#ask").addEventListener("change",build);
+$("#copy").addEventListener("click",copy);
+$("#reset").addEventListener("click",()=>{$("#idea").value="";renderFields();build()});
+$("#theme").addEventListener("click",()=>{
+  const r=document.documentElement;
+  const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+  r.dataset.theme=dark?"light":"dark";
+});
+renderCats();renderFields();build();
+
+/* ===== Motion: GSAP + ScrollTrigger + Lenis ===== */
+{const W=["Coding","Belajar","Kreatif","Umum","Prompt","Ide"],half=W.map(w=>`<span>${w}</span>`).join("").repeat(3);$("#mqt").innerHTML=half+half}
+const lite=matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(window.gsap&&window.ScrollTrigger){try{
+ gsap.registerPlugin(ScrollTrigger);
+ if(window.Lenis){const lenis=new Lenis({lerp:.085,syncTouch:true,touchMultiplier:1.2});lenis.on("scroll",ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}
+ const tl=gsap.timeline({defaults:{ease:"power4.out"}});
+ tl.from("nav",{y:-30,opacity:0,duration:.8})
+  .from(".pill",{y:20,opacity:0,duration:.7},"-=.4")
+  .from(".wm",{yPercent:40,opacity:0,duration:1.2,clearProps:"transform"},"-=.5")
+  .from(".by",{y:16,opacity:0,duration:.8},"-=.9")
+  .from(".sub",{y:24,opacity:0,duration:.9},"-=.6")
+  .from(".hero p,.steps",{y:20,opacity:0,stagger:.12,duration:.8},"-=.6")
+  .from(".mq",{opacity:0,duration:.8},"-=.4")
+  .from(".cat",{y:50,opacity:0,stagger:.09,duration:.9,clearProps:"transform,opacity",onStart:()=>$("#cats").classList.add("intro"),onComplete:()=>$("#cats").classList.remove("intro")},"-=.5");
+ if(lite)tl.timeScale(1.8);
+ 
+ if(!lite)gsap.to("#mqt",{xPercent:-50,duration:32,ease:"none",repeat:-1});
+ gsap.to(".prog",{scaleX:1,ease:"none",scrollTrigger:{start:0,end:"max",scrub:.3}});
+ if(!lite)gsap.to(".aur",{rotate:25,scale:1.25,ease:"none",scrollTrigger:{start:0,end:"max",scrub:1}});
+ gsap.utils.toArray("h2").forEach(h=>gsap.from(h,{x:-24,opacity:0,duration:.8,ease:"power3.out",scrollTrigger:{trigger:h,start:"top 92%"}}));
+ gsap.from(".grid .card",{y:70,opacity:0,duration:1,stagger:.15,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:".grid",start:"top 88%"}});
+ gsap.from(".hc",{y:60,opacity:0,duration:.9,stagger:.15,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:".hw",start:"top 90%"}});
+ gsap.from("footer",{opacity:0,y:20,scrollTrigger:{trigger:"footer",start:"top 98%"}});
+ $("#cats").addEventListener("click",()=>{
+  gsap.from("#fields .fld",{y:22,opacity:0,stagger:.06,duration:.5,ease:"power3.out",clearProps:"all"});
+  gsap.from("#chips .chip",{scale:.8,opacity:0,stagger:.05,duration:.4,clearProps:"all"});
+  gsap.from(".cat.on .ic",{rotate:-25,scale:.7,duration:.6,ease:"back.out(2.5)",clearProps:"all"});
+ });
+ $("#copy").addEventListener("click",()=>{if(current)gsap.fromTo("#pre",{scale:.985},{scale:1,duration:.6,ease:"elastic.out(1,.5)"})});
+ document.querySelectorAll(".btn:not(.s),.ghost").forEach(b=>{
+  const x=gsap.quickTo(b,"x",{duration:.5,ease:"power3"}),y=gsap.quickTo(b,"y",{duration:.5,ease:"power3"});
+  b.addEventListener("pointermove",e=>{const r=b.getBoundingClientRect();x((e.clientX-r.left-r.width/2)*.25);y((e.clientY-r.top-r.height/2)*.35)});
+  b.addEventListener("pointerleave",()=>{x(0);y(0)});
+ });
+ if(matchMedia("(hover:hover)").matches){
+  const gx=gsap.quickTo(".glow","x",{duration:.9,ease:"power3"}),gy=gsap.quickTo(".glow","y",{duration:.9,ease:"power3"});let on=0;
+  addEventListener("pointermove",e=>{if(!on){on=1;gsap.to(".glow",{opacity:.16,duration:1})}gx(e.clientX);gy(e.clientY)});
+ }
+}catch(err){console.error(err)}}
+document.addEventListener("pointermove",e=>{const t=e.target.closest&&e.target.closest(".card,.cat");if(!t)return;const r=t.getBoundingClientRect();t.style.setProperty("--mx",(e.clientX-r.left)+"px");t.style.setProperty("--my",(e.clientY-r.top)+"px")});
+</script>
+</body>
+</html>
